@@ -12,7 +12,7 @@
 #include "stdio.h"
 #include "string.h"
 
-#define QQWRY "QQWry.dat"
+#define QQWRY "..\\WinMTR\\QQWry.dat"
 #define REDIRECT_MODE_1 0x01
 #define REDIRECT_MODE_2 0x02
 #define MAXBUF 255
