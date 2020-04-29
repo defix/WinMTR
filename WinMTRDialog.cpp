@@ -1198,7 +1198,7 @@ void WinMTRDialog::Transit(STATES new_state)
 void WinMTRDialog::OnTimer(UINT_PTR nIDEvent)
 {
 	static unsigned int call_count = 0;
-    static unsigned int trace_count = 0;
+//    static unsigned int trace_count = 0;
 	call_count += 1;
 
 	if(state == EXIT && WaitForSingleObject(traceThreadMutex, 0) == WAIT_OBJECT_0) {
@@ -1214,17 +1214,17 @@ void WinMTRDialog::OnTimer(UINT_PTR nIDEvent)
 		ReleaseMutex(traceThreadMutex);
         if (state == TRACING) {
             Transit(TRACING);
-            trace_count++;
+//            trace_count++;
         }
         else if (state == STOPPING) {
             Transit(STOPPING);
-            trace_count = 0;
+//            trace_count = 0;
         }
     }
-    if (trace_count > 5) {
-        Transit(STOPPING);
-        trace_count = 0;
-    }
+//    if (trace_count > 5) {
+//        Transit(STOPPING);
+//       trace_count = 0;
+//    }
 	CDialog::OnTimer(nIDEvent);
 }
 
