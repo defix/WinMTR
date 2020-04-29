@@ -1,4 +1,4 @@
-//*****************************************************************************
+ï»¿//*****************************************************************************
 // FILE:            WinMTRNet.cpp
 //
 //*****************************************************************************
@@ -438,10 +438,10 @@ void WinMTRNet::AddXmit(int at)
 	ReleaseMutex(ghMutex);
 }
 
-/*unsigned long getValue( »ñÈ¡ÎÄ¼şÖĞÖ¸¶¨µÄ16½øÖÆ´®µÄÖµ£¬²¢·µ»Ø
-FILE *fp, Ö¸¶¨ÎÄ¼şÖ¸Õë
-unsigned long start, Ö¸¶¨ÎÄ¼şÆ«ÒÆÁ¿
-int length) »ñÈ¡µÄ16½øÖÆ×Ö·û¸öÊı/³¤¶È
+/*unsigned long getValue( è·å–æ–‡ä»¶ä¸­æŒ‡å®šçš„16è¿›åˆ¶ä¸²çš„å€¼ï¼Œå¹¶è¿”å›
+FILE *fp, æŒ‡å®šæ–‡ä»¶æŒ‡é’ˆ
+unsigned long start, æŒ‡å®šæ–‡ä»¶åç§»é‡
+int length) è·å–çš„16è¿›åˆ¶å­—ç¬¦ä¸ªæ•°/é•¿åº¦
 */
 unsigned long getValue(FILE *fp, unsigned long start, int length)
 {
@@ -451,46 +451,46 @@ unsigned long getValue(FILE *fp, unsigned long start, int length)
     fseek(fp, start, SEEK_SET);
     for (i = 0; i<length; i++)
     {
-        /*¹ıÂË¸ßÎ»£¬Ò»´Î¶ÁÈ¡Ò»¸ö×Ö·û*/
+        /*è¿‡æ»¤é«˜ä½ï¼Œä¸€æ¬¡è¯»å–ä¸€ä¸ªå­—ç¬¦*/
         val[i] = fgetc(fp) & 0x000000FF;
     }
     for (i = length - 1; i >= 0; i--)
     {
-        /*ÒòÎª¶ÁÈ¡¶à¸ö16½øÖÆ×Ö·û£¬µş¼Ó*/
+        /*å› ä¸ºè¯»å–å¤šä¸ª16è¿›åˆ¶å­—ç¬¦ï¼Œå åŠ */
         variable = variable * 0x100 + val[i];
     }
     return variable;
 };
 
 
-/*int getString( »ñÈ¡ÎÄ¼şÖĞÖ¸¶¨µÄ×Ö·û´®£¬·µ»Ø×Ö·û´®³¤¶È
-FILE *fp, Ö¸¶¨ÎÄ¼şÖ¸Õë
-unsigned long start, Ö¸¶¨ÎÄ¼şÆ«ÒÆÁ¿
-char **string) ÓÃÀ´´æ·Å½«¶ÁÈ¡×Ö·û´®µÄ×Ö·û´®¿Õ¼äµÄÊ×µØÖ·
+/*int getString( è·å–æ–‡ä»¶ä¸­æŒ‡å®šçš„å­—ç¬¦ä¸²ï¼Œè¿”å›å­—ç¬¦ä¸²é•¿åº¦
+FILE *fp, æŒ‡å®šæ–‡ä»¶æŒ‡é’ˆ
+unsigned long start, æŒ‡å®šæ–‡ä»¶åç§»é‡
+char **string) ç”¨æ¥å­˜æ”¾å°†è¯»å–å­—ç¬¦ä¸²çš„å­—ç¬¦ä¸²ç©ºé—´çš„é¦–åœ°å€
 */
 int getString(FILE *fp, unsigned long start, char **string)
 {
     unsigned long i = 0;
     char val;
     fseek(fp, start, SEEK_SET);
-    /*¶ÁÈ¡×Ö·û´®£¬Ö±µ½Óöµ½0x00ÎªÖ¹*/
+    /*è¯»å–å­—ç¬¦ä¸²ï¼Œç›´åˆ°é‡åˆ°0x00ä¸ºæ­¢*/
     do
     {
         val = fgetc(fp);
-        /*ÒÀ´Î·ÅÈëÓÃÀ´´æ´¢µÄ×Ö·û´®¿Õ¼äÖĞ*/
+        /*ä¾æ¬¡æ”¾å…¥ç”¨æ¥å­˜å‚¨çš„å­—ç¬¦ä¸²ç©ºé—´ä¸­*/
         *(*string + i) = val;
         i++;
     } while (val != 0x00);
-    /*·µ»Ø×Ö·û´®³¤¶È*/
+    /*è¿”å›å­—ç¬¦ä¸²é•¿åº¦*/
     return i;
 };
 
 
-/*void getAddress( ¶ÁÈ¡Ö¸¶¨IPµÄ¹ú¼ÒÎ»ÖÃºÍµØÓòÎ»ÖÃ
-FILE *fp, Ö¸¶¨ÎÄ¼şÖ¸Õë
-unsigned long start, Ö¸¶¨IPÔÚË÷ÒıÖĞµÄÎÄ¼şÆ«ÒÆÁ¿
-char **country, ÓÃÀ´´æ·Å¹ú¼ÒÎ»ÖÃµÄ×Ö·û´®¿Õ¼äµÄÊ×µØÖ·
-char **location) ÓÃÀ´´æ·ÅµØÓòÎ»ÖÃµÄ×Ö·û´®¿Õ¼äµÄÊ×µØÖ·
+/*void getAddress( è¯»å–æŒ‡å®šIPçš„å›½å®¶ä½ç½®å’Œåœ°åŸŸä½ç½®
+FILE *fp, æŒ‡å®šæ–‡ä»¶æŒ‡é’ˆ
+unsigned long start, æŒ‡å®šIPåœ¨ç´¢å¼•ä¸­çš„æ–‡ä»¶åç§»é‡
+char **country, ç”¨æ¥å­˜æ”¾å›½å®¶ä½ç½®çš„å­—ç¬¦ä¸²ç©ºé—´çš„é¦–åœ°å€
+char **location) ç”¨æ¥å­˜æ”¾åœ°åŸŸä½ç½®çš„å­—ç¬¦ä¸²ç©ºé—´çš„é¦–åœ°å€
 */
 void getAddress(FILE *fp, unsigned long start, char **country, char **location)
 {
@@ -499,30 +499,30 @@ void getAddress(FILE *fp, unsigned long start, char **country, char **location)
 
     start += 4;
     fseek(fp, start, SEEK_SET);
-    /*¶ÁÈ¡Ê×µØÖ·µÄÖµ*/
+    /*è¯»å–é¦–åœ°å€çš„å€¼*/
     val = (fgetc(fp) & 0x000000FF);
 
     if (val == REDIRECT_MODE_1)
     {
-        /*ÖØ¶¨Ïò1ÀàĞÍµÄ*/
+        /*é‡å®šå‘1ç±»å‹çš„*/
         redirect_address = getValue(fp, start + 1, 3);
         fseek(fp, redirect_address, SEEK_SET);
-        /*»ìºÏÀàĞÍ£¬ÖØ¶¨Ïò1ÀàĞÍ½øÈëºóÓöµ½ÖØ¶¨Ïò2ÀàĞÍ
-        ¶ÁÈ¡ÖØ¶¨ÏòºóµÄÄÚÈİ£¬²¢ÉèÖÃµØÓòÎ»ÖÃµÄÎÄ¼şÆ«ÒÆÁ¿*/
+        /*æ··åˆç±»å‹ï¼Œé‡å®šå‘1ç±»å‹è¿›å…¥åé‡åˆ°é‡å®šå‘2ç±»å‹
+        è¯»å–é‡å®šå‘åçš„å†…å®¹ï¼Œå¹¶è®¾ç½®åœ°åŸŸä½ç½®çš„æ–‡ä»¶åç§»é‡*/
         if ((fgetc(fp) & 0x000000FF) == REDIRECT_MODE_2)
         {
             counrty_address = getValue(fp, redirect_address + 1, 3);
             location_address = redirect_address + 4;
             getString(fp, counrty_address, country);
         }
-        /*¶ÁÈ¡ÖØ¶¨Ïò1ºóµÄÄÚÈİ£¬²¢ÉèÖÃµØÓòÎ»ÖÃµÄÎÄ¼şÆ«ÒÆÁ¿*/
+        /*è¯»å–é‡å®šå‘1åçš„å†…å®¹ï¼Œå¹¶è®¾ç½®åœ°åŸŸä½ç½®çš„æ–‡ä»¶åç§»é‡*/
         else
         {
             counrty_address = redirect_address;
             location_address = redirect_address + getString(fp, counrty_address, country);
         }
     }
-    /*ÖØ¶¨Ïò2ÀàĞÍµÄ*/
+    /*é‡å®šå‘2ç±»å‹çš„*/
     else if (val == REDIRECT_MODE_2)
     {
         counrty_address = getValue(fp, start + 1, 3);
@@ -535,7 +535,7 @@ void getAddress(FILE *fp, unsigned long start, char **country, char **location)
         location_address = counrty_address + getString(fp, counrty_address, country);
     }
 
-    /*¶ÁÈ¡µØÓòÎ»ÖÃ*/
+    /*è¯»å–åœ°åŸŸä½ç½®*/
     fseek(fp, location_address, SEEK_SET);
     if ((fgetc(fp) & 0x000000FF) == REDIRECT_MODE_2 || (fgetc(fp) & 0x000000FF) == REDIRECT_MODE_1)
     {
@@ -547,30 +547,30 @@ void getAddress(FILE *fp, unsigned long start, char **country, char **location)
 };
 
 
-/*void getHead( ¶ÁÈ¡Ë÷Òı²¿·ÖµÄ·¶Î§£¨ÔÚÎÄ¼şÍ·ÖĞ£¬×îÏÈµÄ2¸ö8Î»16½øÖÆ£©
-FILE *fp, Ö¸¶¨ÎÄ¼şÖ¸Õë
-unsigned long *start, ÎÄ¼şÆ«ÒÆÁ¿£¬Ë÷ÒıµÄÆğÖ¹Î»ÖÃ
-unsigned long *end) ÎÄ¼şÆ«ÒÆÁ¿£¬Ë÷ÒıµÄ½áÊøÎ»ÖÃ
+/*void getHead( è¯»å–ç´¢å¼•éƒ¨åˆ†çš„èŒƒå›´ï¼ˆåœ¨æ–‡ä»¶å¤´ä¸­ï¼Œæœ€å…ˆçš„2ä¸ª8ä½16è¿›åˆ¶ï¼‰
+FILE *fp, æŒ‡å®šæ–‡ä»¶æŒ‡é’ˆ
+unsigned long *start, æ–‡ä»¶åç§»é‡ï¼Œç´¢å¼•çš„èµ·æ­¢ä½ç½®
+unsigned long *end) æ–‡ä»¶åç§»é‡ï¼Œç´¢å¼•çš„ç»“æŸä½ç½®
 */
 void getHead(FILE *fp, unsigned long *start, unsigned long *end)
 {
-    /*Ë÷ÒıµÄÆğÖ¹Î»ÖÃµÄÎÄ¼şÆ«ÒÆÁ¿£¬´æ´¢ÔÚÎÄ¼şÍ·ÖĞµÄÇ°8¸ö16½øÖÆÖĞ
-    ÉèÖÃÆ«ÒÆÁ¿Îª0£¬¶ÁÈ¡4¸ö×Ö·û*/
+    /*ç´¢å¼•çš„èµ·æ­¢ä½ç½®çš„æ–‡ä»¶åç§»é‡ï¼Œå­˜å‚¨åœ¨æ–‡ä»¶å¤´ä¸­çš„å‰8ä¸ª16è¿›åˆ¶ä¸­
+    è®¾ç½®åç§»é‡ä¸º0ï¼Œè¯»å–4ä¸ªå­—ç¬¦*/
     *start = getValue(fp, 0L, 4);
-    /*Ë÷ÒıµÄ½áÊøÎ»ÖÃµÄÎÄ¼şÆ«ÒÆÁ¿£¬´æ´¢ÔÚÎÄ¼şÍ·ÖĞµÄµÚ8¸öµ½µÚ15¸öµÄ16½øÖÆÖĞ
-    ÉèÖÃÆ«ÒÆÁ¿Îª4¸ö×Ö·û£¬ÔÙ¶ÁÈ¡4¸ö×Ö·û*/
+    /*ç´¢å¼•çš„ç»“æŸä½ç½®çš„æ–‡ä»¶åç§»é‡ï¼Œå­˜å‚¨åœ¨æ–‡ä»¶å¤´ä¸­çš„ç¬¬8ä¸ªåˆ°ç¬¬15ä¸ªçš„16è¿›åˆ¶ä¸­
+    è®¾ç½®åç§»é‡ä¸º4ä¸ªå­—ç¬¦ï¼Œå†è¯»å–4ä¸ªå­—ç¬¦*/
     *end = getValue(fp, 4L, 4);
 };
 
 
-/*unsigned long searchIP( ËÑË÷Ö¸¶¨IPÔÚË÷ÒıÇøµÄÎ»ÖÃ£¬²ÉÓÃ¶ş·Ö²éÕÒ·¨£»
-·µ»ØIPÔÚË÷ÒıÇøÓòµÄÎÄ¼şÆ«ÒÆÁ¿
-Ò»ÌõË÷Òı¼ÇÂ¼µÄ½á¹ûÊÇ£¬Ç°4¸ö16½øÖÆ±íÊ¾ÆğÊ¼IPµØÖ·
-ºóÃæ3¸ö16½øÖÆ£¬±íÊ¾¸ÃÆğÊ¼IPÔÚIPĞÅÏ¢¶ÎÖĞµÄÎ»ÖÃ£¬ÎÄ¼şÆ«ÒÆÁ¿
+/*unsigned long searchIP( æœç´¢æŒ‡å®šIPåœ¨ç´¢å¼•åŒºçš„ä½ç½®ï¼Œé‡‡ç”¨äºŒåˆ†æŸ¥æ‰¾æ³•ï¼›
+è¿”å›IPåœ¨ç´¢å¼•åŒºåŸŸçš„æ–‡ä»¶åç§»é‡
+ä¸€æ¡ç´¢å¼•è®°å½•çš„ç»“æœæ˜¯ï¼Œå‰4ä¸ª16è¿›åˆ¶è¡¨ç¤ºèµ·å§‹IPåœ°å€
+åé¢3ä¸ª16è¿›åˆ¶ï¼Œè¡¨ç¤ºè¯¥èµ·å§‹IPåœ¨IPä¿¡æ¯æ®µä¸­çš„ä½ç½®ï¼Œæ–‡ä»¶åç§»é‡
 FILE *fp,
-unsigned long index_start, Ë÷ÒıÆğÊ¼Î»ÖÃµÄÎÄ¼şÆ«ÒÆÁ¿
-unsigned long index_end, Ë÷Òı½áÊøÎ»ÖÃµÄÎÄ¼şÆ«ÒÆÁ¿
-unsigned long ip) ¹Ø¼ü×Ö£¬ÒªË÷ÒıµÄIP
+unsigned long index_start, ç´¢å¼•èµ·å§‹ä½ç½®çš„æ–‡ä»¶åç§»é‡
+unsigned long index_end, ç´¢å¼•ç»“æŸä½ç½®çš„æ–‡ä»¶åç§»é‡
+unsigned long ip) å…³é”®å­—ï¼Œè¦ç´¢å¼•çš„IP
 */
 unsigned long searchIP(FILE *fp, unsigned long index_start, \
 
@@ -580,9 +580,9 @@ unsigned long searchIP(FILE *fp, unsigned long index_start, \
     unsigned long record;
     index_bottom = index_start;
     index_top = index_end;
-    /*´Ë´¦µÄ7£¬ÊÇÒòÎªÒ»ÌõË÷Òı¼ÇÂ¼µÄ³¤¶ÈÊÇ7*/
+    /*æ­¤å¤„çš„7ï¼Œæ˜¯å› ä¸ºä¸€æ¡ç´¢å¼•è®°å½•çš„é•¿åº¦æ˜¯7*/
     index_current = ((index_top - index_bottom) / 7 / 2) * 7 + index_bottom;
-    /*¶ş·Ö²éÕÒ·¨*/
+    /*äºŒåˆ†æŸ¥æ‰¾æ³•*/
     do{
         record = getValue(fp, index_current, 4);
         if (record>ip)
@@ -596,16 +596,16 @@ unsigned long searchIP(FILE *fp, unsigned long index_start, \
             index_current = ((index_top - index_bottom) / 14) * 7 + index_bottom;
         }
     } while (index_bottom<index_current);
-    /*·µ»Ø¹Ø¼ü×ÖIPÔÚË÷ÒıÇøÓòµÄÎÄ¼şÆ«ÒÆÁ¿*/
+    /*è¿”å›å…³é”®å­—IPåœ¨ç´¢å¼•åŒºåŸŸçš„æ–‡ä»¶åç§»é‡*/
     return index_current;
 };
 
 
-/*unsigned long putAll( µ¼³öËùÓĞIPĞÅÏ¢µ½ÎÄ¼şÎÄ¼şÖĞ£¬º¯Êı·µ»Øµ¼³ö×ÜÌõÊı
+/*unsigned long putAll( å¯¼å‡ºæ‰€æœ‰IPä¿¡æ¯åˆ°æ–‡ä»¶æ–‡ä»¶ä¸­ï¼Œå‡½æ•°è¿”å›å¯¼å‡ºæ€»æ¡æ•°
 FILE *fp,
-FILE *out, µ¼³öµÄÎÄ¼şÖ¸Õë£¬±ØĞëÓµÓĞĞ´È¨ÏŞ
-unsigned long index_start, Ë÷ÒıÇøÓòµÄÆğÊ¼ÎÄ¼şÆ«ÒÆÁ¿
-unsigned long index_end) Ë÷ÒıÇøÓòµÄ½áÊøÎÄ¼şÆ«ÒÆÁ¿
+FILE *out, å¯¼å‡ºçš„æ–‡ä»¶æŒ‡é’ˆï¼Œå¿…é¡»æ‹¥æœ‰å†™æƒé™
+unsigned long index_start, ç´¢å¼•åŒºåŸŸçš„èµ·å§‹æ–‡ä»¶åç§»é‡
+unsigned long index_end) ç´¢å¼•åŒºåŸŸçš„ç»“æŸæ–‡ä»¶åç§»é‡
 */
 unsigned long putAll(FILE *fp, FILE *out, unsigned long index_start, unsigned long index_end)
 {
@@ -617,16 +617,16 @@ unsigned long putAll(FILE *fp, FILE *out, unsigned long index_start, unsigned lo
     country = (char*)malloc(255);
     location = (char*)malloc(255);
 
-    /*´Ë´¦µÄ7£¬ÊÇÒòÎªÒ»ÌõË÷Òı¼ÇÂ¼µÄ³¤¶ÈÊÇ7*/
+    /*æ­¤å¤„çš„7ï¼Œæ˜¯å› ä¸ºä¸€æ¡ç´¢å¼•è®°å½•çš„é•¿åº¦æ˜¯7*/
     for (i = index_start; i<index_end; i += 7)
     {
-        /*»ñÈ¡IP¶ÎµÄÆğÊ¼IPºÍ½áÊøIP£¬
-        ÆğÊ¼IPÎªË÷Òı²¿·ÖµÄÇ°4Î»16½øÖÆ
-        ½áÊøIPÔÚIPĞÅÏ¢²¿·ÖµÄÇ°4Î»16½øÖÆÖĞ£¬¿¿Ë÷Òı²¿·ÖÖ¸¶¨µÄÆ«ÒÆÁ¿ÕÒÑ°*/
+        /*è·å–IPæ®µçš„èµ·å§‹IPå’Œç»“æŸIPï¼Œ
+        èµ·å§‹IPä¸ºç´¢å¼•éƒ¨åˆ†çš„å‰4ä½16è¿›åˆ¶
+        ç»“æŸIPåœ¨IPä¿¡æ¯éƒ¨åˆ†çš„å‰4ä½16è¿›åˆ¶ä¸­ï¼Œé ç´¢å¼•éƒ¨åˆ†æŒ‡å®šçš„åç§»é‡æ‰¾å¯»*/
         start_ip = getValue(fp, i, 4);
         end_ip = getValue(fp, getValue(fp, i + 4, 3), 4);
-        /*µ¼³öIPĞÅÏ¢£¬¸ñÊ½ÊÇ
-        ÆğÊ¼IP\t½áÊøIP\t¹ú¼ÒÎ»ÖÃ\tµØÓòÎ»ÖÃ\n*/
+        /*å¯¼å‡ºIPä¿¡æ¯ï¼Œæ ¼å¼æ˜¯
+        èµ·å§‹IP\tç»“æŸIP\tå›½å®¶ä½ç½®\tåœ°åŸŸä½ç½®\n*/
         fprintf(out, "%d.%d.%d.%d", (start_ip & 0xFF000000) >> 0x18, \
 
             (start_ip & 0x00FF0000) >> 0x10, (start_ip & 0x0000FF00) >> 0x8, start_ip & 0x000000FF);
@@ -638,14 +638,14 @@ unsigned long putAll(FILE *fp, FILE *out, unsigned long index_start, unsigned lo
         fprintf(out, "\t%s\t%s\n", country, location);
         count++;
     }
-    /*·µ»Øµ¼³ö×ÜÌõÊı*/
+    /*è¿”å›å¯¼å‡ºæ€»æ¡æ•°*/
     return count;
 };
 
 
-/*ÅĞ¶ÏÒ»¸ö×Ö·ûÊÇ·ñÎªÊı×Ö×Ö·û£¬
-Èç¹ûÊÇ£¬·µ»Ø0
-Èç¹û²»ÊÇ£¬·µ»Ø1*/
+/*åˆ¤æ–­ä¸€ä¸ªå­—ç¬¦æ˜¯å¦ä¸ºæ•°å­—å­—ç¬¦ï¼Œ
+å¦‚æœæ˜¯ï¼Œè¿”å›0
+å¦‚æœä¸æ˜¯ï¼Œè¿”å›1*/
 int beNumber(char c)
 {
     if (c >= '0'&&c <= '9')
@@ -655,38 +655,38 @@ int beNumber(char c)
 };
 
 
-/*º¯ÊıµÄ²ÎÊıÊÇÒ»¸ö´æ´¢×ÅIPµØÖ·µÄ×Ö·û´®Ê×µØÖ·
-·µ»Ø¸ÃIPµÄ16½øÖÆ´úÂë
-Èç¹ûÊäÈëµÄIPµØÖ·ÓĞ´íÎó£¬º¯Êı½«·µ»Ø0*/
+/*å‡½æ•°çš„å‚æ•°æ˜¯ä¸€ä¸ªå­˜å‚¨ç€IPåœ°å€çš„å­—ç¬¦ä¸²é¦–åœ°å€
+è¿”å›è¯¥IPçš„16è¿›åˆ¶ä»£ç 
+å¦‚æœè¾“å…¥çš„IPåœ°å€æœ‰é”™è¯¯ï¼Œå‡½æ•°å°†è¿”å›0*/
 unsigned long getIP(char *ip_addr)
 {
     unsigned long ip = 0;
     int i, j = 0;
-    /*ÒÀ´Î¶ÁÈ¡×Ö·û´®ÖĞµÄ¸÷¸ö×Ö·û*/
+    /*ä¾æ¬¡è¯»å–å­—ç¬¦ä¸²ä¸­çš„å„ä¸ªå­—ç¬¦*/
     for (i = 0; i<strlen(ip_addr); i++)
     {
-        /*Èç¹ûÊÇIPµØÖ·¼ä¸ôµÄ¡®.¡¯·ûºÅ
-        °Ñµ±Ç°¶ÁÈ¡µ½µÄIP×Ö¶ÎµÄÖµ£¬´æÈëip±äÁ¿ÖĞ
-        £¨×¢Òâ£¬ipÎªµş¼ÓÊ±£¬³ËÒÔ16½øÖÆµÄ0x100£©
-        ²¢Çå³ıÁÙÊ±±äÁ¿µÄÖµ*/
+        /*å¦‚æœæ˜¯IPåœ°å€é—´éš”çš„â€˜.â€™ç¬¦å·
+        æŠŠå½“å‰è¯»å–åˆ°çš„IPå­—æ®µçš„å€¼ï¼Œå­˜å…¥ipå˜é‡ä¸­
+        ï¼ˆæ³¨æ„ï¼Œipä¸ºå åŠ æ—¶ï¼Œä¹˜ä»¥16è¿›åˆ¶çš„0x100ï¼‰
+        å¹¶æ¸…é™¤ä¸´æ—¶å˜é‡çš„å€¼*/
         if (*(ip_addr + i) == '.')
         {
             ip = ip * 0x100 + j;
             j = 0;
         }
-        /*ÍùÁÙÊ±±äÁ¿ÖĞĞ´Èëµ±Ç°¶ÁÈ¡µ½µÄIP×Ö¶ÎÖĞµÄ×Ö·ûÖµ
-        µş¼Ó³ËÒÔ10£¬ÒòÎªÊäÈëµÄIPµØÖ·ÊÇ10½øÖÆ*/
+        /*å¾€ä¸´æ—¶å˜é‡ä¸­å†™å…¥å½“å‰è¯»å–åˆ°çš„IPå­—æ®µä¸­çš„å­—ç¬¦å€¼
+        å åŠ ä¹˜ä»¥10ï¼Œå› ä¸ºè¾“å…¥çš„IPåœ°å€æ˜¯10è¿›åˆ¶*/
         else
         {
-            /*ÅĞ¶Ï£¬Èç¹ûÊäÈëµÄIPµØÖ·²»¹æ·¶£¬²»ÊÇ10½øÖÆ×Ö·û
-            º¯Êı½«·µ»Ø0*/
+            /*åˆ¤æ–­ï¼Œå¦‚æœè¾“å…¥çš„IPåœ°å€ä¸è§„èŒƒï¼Œä¸æ˜¯10è¿›åˆ¶å­—ç¬¦
+            å‡½æ•°å°†è¿”å›0*/
             if (beNumber(*(ip_addr + i)) == 0)
                 j = j * 10 + *(ip_addr + i) - '0';
             else
                 return 0;
         }
     }
-    /*IP×Ö¶ÎÓĞ4¸ö£¬µ«ÊÇ¡®.¡¯Ö»ÓĞ3¸ö£¬µş¼ÓµÚËÄ¸ö×Ö¶ÎÖµ*/
+    /*IPå­—æ®µæœ‰4ä¸ªï¼Œä½†æ˜¯â€˜.â€™åªæœ‰3ä¸ªï¼Œå åŠ ç¬¬å››ä¸ªå­—æ®µå€¼*/
     ip = ip * 0x100 + j;
     return ip;
 };
@@ -717,9 +717,9 @@ void DnsResolverThread(void *p)
     
     getHead(fp, &index_start, &index_end);
     getAddress(fp, getValue(fp, index_end + 4, 3), &country, &location);
-    //ËÑË÷IPÔÚË÷ÒıÇøÓòµÄÌõÄ¿µÄÆ«ÒÆÁ¿
+    //æœç´¢IPåœ¨ç´¢å¼•åŒºåŸŸçš„æ¡ç›®çš„åç§»é‡
     current = searchIP(fp, index_start, index_end, addr);
-    //»ñÈ¡¸ÃIP¶ÔÒòµÄ¹ú¼ÒµØÖ·ºÍµØÓòµØÖ·
+    //è·å–è¯¥IPå¯¹å› çš„å›½å®¶åœ°å€å’Œåœ°åŸŸåœ°å€
     getAddress(fp, getValue(fp, current + 4, 3), &country, &location);
     std::string l = std::string(location);
     std::string c = std::string(country);
